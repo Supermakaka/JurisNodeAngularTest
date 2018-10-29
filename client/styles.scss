@@ -67,7 +67,7 @@ body {
   -o-border-radius: 8px;
   border-radius: 8px;
   text-align: left;
-  display: inline-block; 
+  display: inline-block;
 }
   .bubble:hover > .over-bubble {
     opacity: 1; }
@@ -107,10 +107,10 @@ body {
   -moz-border-radius-bottomright: 8px;
   -webkit-border-bottom-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  margin-bottom: 2em; 
+  margin-bottom: 2em;
   padding-left: 0px;}
   .timeline li {
-    padding: 1em 0; 
+    padding: 1em 0;
     display: flex;
     align-items: center;
     }
@@ -329,3 +329,4 @@ h3 {
     display: block;
     font-size: 1.2em; }
 
+button:focus {outline:0;}

@@ -38,7 +38,7 @@ var _stream;
 
 io.on('connection', function(socket: any){
     console.log('a user connected.');
-    
+
     var query = socket.handshake.query.data;
 
     startStream(socket, query);
@@ -52,14 +52,13 @@ io.on('connection', function(socket: any){
 function startStream(socket, term) {
     twitClient.stream('statuses/filter', { track: encodeURIComponent(term) }, function(stream) {
       _stream = stream;
-  
+
       stream.on('data', function(tweet) {
         io.emit('message', tweet);
       });
-  
+
       stream.on('error', function(error) {
-        // throw error;
-        io.emit('message', error);
+        io.emit('message', error.message);
         _stream.destroy();
       });
     })

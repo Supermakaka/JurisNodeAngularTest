@@ -23,7 +23,7 @@ export class TwitterComponent implements OnInit {
     Validators.required,
     Validators.pattern('[a-zA-Z0-9_-\\s]*'),
   ]));
-  
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               public toast: ToastComponent,
@@ -36,19 +36,15 @@ export class TwitterComponent implements OnInit {
     });
   }
 
-  setClassQuery() {
-    return { 'has-danger': !this.query.pristine && !this.query.valid };
-  }
-
   private initIoConnection(): void {
     this.socketService.initSocket(this.query.value);
 
     this.ioConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
-        if ('user' in message)
+        if (message.hasOwnProperty('user'))
           this.twits.push(message);
         else
-          this.toast.setMessage('Try one more time!', 'danger');
+          this.toast.setMessage(message, 'danger');
       });
 
     this.socketService.onEvent(Event.CONNECT)
@@ -72,9 +68,9 @@ export class TwitterComponent implements OnInit {
       );
     } else {
       if(this.query.value.length > 0)
-        this.toast.setMessage('Query length should be less than 10 words.', 'warning');
+        this.toast.setMessage('Query length must be less than 10 words.', 'danger');
       else
-        this.toast.setMessage('Query is required.', 'warning');
-    }    
+        this.toast.setMessage('Query is required.', 'danger');
+    }
   }
 }
