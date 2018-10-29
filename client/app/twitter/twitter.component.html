@@ -1,0 +1,46 @@
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="formContainer" >
+  <form [formGroup]="searchForm" (ngSubmit)="search()">
+    <fieldset class="fieldInput">
+      <input class="form-input" name="query" formControlName="query" type="text" max-word-count placeholder="Search...">
+      <button type="submit" class="form-submit">Enter</button>
+    </fieldset>
+  </form>
+</div>
+
+<ul class="timeline chat-list" *ngIf="twits.length > 0">
+  <li *ngFor="let twit of twits.slice().reverse()" [ngClass]="chat-list-item">
+    <div class="avatar">
+      <img [src]="twit.user.profile_image_url">
+      <a target="blank" href="https://twitter.com/{{twit.user.screen_name}}">
+        <div class="hover">          
+          <div class="icon-twitter"></div>
+        </div>
+      </a>
+    </div>
+    <div class="bubble-container">
+      <div class="bubble">
+        <div class="retweet" *ngIf="twit.retweeted_status">
+          <div class="icon-retweet"></div>
+        </div>
+
+        <h3>{{twit.user.name}}</h3> <span *ngIf="twit.retweeted_status"> retweeted </span> <h3 *ngIf="twit.retweeted_status">{{twit.retweeted_status.user.name}}</h3><br/>
+        {{twit.text}}
+
+        <div class="over-bubble">
+          <a target="blank" href="https://twitter.com/{{twit.user.screen_name}}/status/{{twit.id_str}}"><div class="icon-mail-reply action"></div></a>
+          <a target="blank" href="https://twitter.com/{{twit.user.screen_name}}/status/{{twit.id_str}}"><div class="icon-retweet action"></div></a>
+          <a target="blank" href="https://twitter.com/{{twit.user.screen_name}}/status/{{twit.id_str}}"><div class="icon-star"></div></a>
+        </div>
+      </div>
+
+      <div class="arrow"></div>
+    </div>
+  </li>
+</ul>
+
+
+
+
+    
